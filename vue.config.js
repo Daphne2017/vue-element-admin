@@ -31,12 +31,27 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
-    open: true,
+    open: false,
+    disableHostCheck: true,
     overlay: {
       warnings: false,
-      errors: true
+      errors: true,
     },
-    before: require('./mock/mock-server.js')
+    proxy: {
+      '/dev_mock': {
+        target: 'http://47.110.148.106:3030/mock/11',
+        changeOrigin: true,
+        pathRewrite: path => pathReplace(path, '/dev-api/dev_mock'),
+      },
+      '/dev-api': {
+        // target: 'http://beta-hn1c-2.xiaohuxi.cn/huoxing/admin/api',
+        target: 'http://127.0.0.1:7001',
+        // target: 'http://192.168.0.66:7001',
+        changeOrigin: true,
+        pathRewrite: { '^/dev-api': '' },
+      },
+    },
+    // before: require('./mock/mock-server.js')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
