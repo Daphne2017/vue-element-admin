@@ -44,9 +44,7 @@ module.exports = {
         pathRewrite: path => pathReplace(path, '/dev-api/dev_mock'),
       },
       '/dev-api': {
-        // target: 'http://beta-hn1c-2.xiaohuxi.cn/huoxing/admin/api',
         target: 'http://127.0.0.1:7001',
-        // target: 'http://192.168.0.66:7001',
         changeOrigin: true,
         pathRewrite: { '^/dev-api': '' },
       },
