@@ -125,6 +125,19 @@ export const constantRoutes = [
   },
   gameRouter,
   {
+    path: '/tag',
+    component: Layout,
+    redirect: '/tag/list',
+    children: [
+      {
+        path: 'list',
+        component: () => import('@/views/tagList/index'),
+        name: 'TagList',
+        meta: { title: 'TagList', icon: 'dashboard', affix: true },
+      },
+    ],
+  },
+  {
     path: '/user',
     component: Layout,
     redirect: '/user/list',
