@@ -29,3 +29,11 @@ export function updatePutStatusApi(id, data) {
     data,
   })
 }
+
+// 获取所有的游戏
+export function getAllGamesApi() {
+  return request({
+    url: `/gameMangement/gameLibrary/all`,
+    method: 'get',
+  })
+}

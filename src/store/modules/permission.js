@@ -18,10 +18,9 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes(routes = [], roles) {
   const res = []
-
-  routes.forEach(route => {
+  routes && routes.forEach(route => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
@@ -53,8 +52,11 @@ const actions = {
       if (roles.includes('admin')) {
         accessedRoutes = asyncRoutes || []
       } else {
+        console.log('bianjiezeh', asyncRoutes)
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+        console.log('4444444444', accessedRoutes)
       }
+      console.log('accessedRoutesaccessedRoutes', accessedRoutes)
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })

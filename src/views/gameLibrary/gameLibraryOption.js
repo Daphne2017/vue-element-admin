@@ -16,7 +16,7 @@ export const gameColumn = [
     },
   },
   {
-    prop: 'associateTags',
+    prop: 'associateTagsNames',
     label: '标签关联',
   },
   {

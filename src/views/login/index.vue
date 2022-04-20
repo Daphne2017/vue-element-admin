@@ -46,6 +46,7 @@
       </el-tooltip>
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button :loading="loading" type="primary" @click.native.prevent="handleRegister">注册</el-button>
 
       <div style="position:relative">
         <div class="tips">
@@ -74,7 +75,8 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+// import { validUsername } from '@/utils/validate'
+import { register } from '@/api/user'
 import SocialSign from './components/SocialSignin'
 
 export default {
@@ -82,7 +84,7 @@ export default {
   components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (!value) {
         callback(new Error('Please enter the correct user name'))
       } else {
         callback()
@@ -97,8 +99,8 @@ export default {
     }
     return {
       loginForm: {
-        username: '18819164274',
-        password: 'huoxing2020',
+        username: '',
+        password: '',
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -156,10 +158,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          console.log(11111111111)
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              console.log(11111111111)
+              console.log(333333)
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false
             })
@@ -169,6 +170,18 @@ export default {
         } else {
           console.log('error submit!!')
           return false
+        }
+      })
+    },
+
+    async handleRegister() {
+      this.$refs.loginForm.validate(async valid => {
+        if (valid) {
+          await register(this.loginForm)
+
+          this.handleLogin()
+        } else {
+          console.log('error submit!!')
         }
       })
     },
