@@ -19,38 +19,9 @@ export const tagColumn = [
     },
   },
   {
-    prop: 'weight',
-    label: '排序权重',
-    sortable: 'custom',
-  },
-  {
-    prop: 'heat',
-    label: '标签热度',
-    sortable: 'custom',
-  },
-  {
     prop: 'relatedGameCount',
     label: '关联游戏数',
     sortable: 'custom',
-  },
-  {
-    prop: 'putStatusText',
-    label: '状态',
-    showOverflowTooltip: true,
-    formPropVal: '',
-    filterOption: {
-      type: 'select',
-      label: '状态',
-      prop: 'putStatus',
-      placeholder: '请选择',
-      disabled: false,
-      multiple: false,
-      filterable: true,
-      clearable: false,
-      selectData: [
-        { label: '上架中', value: 1 }, { label: '已下架', value: 0 }, { label: '全部', value: '' },
-      ],
-    },
   },
   {
     prop: 'operate',
@@ -69,7 +40,7 @@ export const tagFilterBtn = {
 }
 export const tagExtraFormData = {
   order: {
-    col: 'weight',
+    col: 'id',
     sort: 'DESC',
   },
 }
