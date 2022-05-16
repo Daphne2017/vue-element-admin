@@ -1,13 +1,13 @@
 import { asyncRoutes, constantRoutes } from '@/router'
 
 /**
- * Use meta.role to determine if the current user has permission
+ * Use meta.code to determine if the current user has permission
  * @param roles
  * @param route
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return roles.some(role => route.meta.roles.includes(role))
+  if (route.meta && route.meta.code) {
+    return roles.some(role => route.meta.code.includes(role))
   } else {
     return true
   }
@@ -18,9 +18,10 @@ function hasPermission(roles, route) {
  * @param routes asyncRoutes
  * @param roles
  */
-export function filterAsyncRoutes(routes = [], roles) {
+export function filterAsyncRoutes(routes, roles) {
   const res = []
-  routes && routes.forEach(route => {
+
+  routes.forEach(route => {
     const tmp = { ...route }
     if (hasPermission(roles, tmp)) {
       if (tmp.children) {
@@ -35,37 +36,36 @@ export function filterAsyncRoutes(routes = [], roles) {
 
 const state = {
   routes: [],
-  addRoutes: []
+  addRoutes: [],
 }
 
 const mutations = {
   SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
-  }
+  },
 }
 
 const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes
+      let asyncRoutesFilter = asyncRoutes
+      if (process.env.NODE_ENV !== 'development') asyncRoutesFilter = asyncRoutes.filter(item => item.path !== '/demo')
       if (roles.includes('admin')) {
-        accessedRoutes = asyncRoutes || []
+        accessedRoutes = asyncRoutesFilter || []
       } else {
-        console.log('bianjiezeh', asyncRoutes)
-        accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-        console.log('4444444444', accessedRoutes)
+        accessedRoutes = filterAsyncRoutes(asyncRoutesFilter, roles)
       }
-      console.log('accessedRoutesaccessedRoutes', accessedRoutes)
       commit('SET_ROUTES', accessedRoutes)
       resolve(accessedRoutes)
     })
-  }
+  },
 }
 
 export default {
   namespaced: true,
   state,
   mutations,
-  actions
+  actions,
 }
