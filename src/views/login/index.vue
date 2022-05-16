@@ -45,23 +45,8 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
-      <el-button :loading="loading" type="primary" @click.native.prevent="handleRegister">注册</el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>Username : admin</span>
-          <span>Password : any</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
-          <span>Password : any</span>
-        </div>
-
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          Or connect with
-        </el-button>
-      </div>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button><br>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">注册</el-button>
     </el-form>
 
     <el-dialog title="Or connect with" :visible.sync="showDialog">
@@ -175,6 +160,7 @@ export default {
     },
 
     async handleRegister() {
+      console.log(4444454500)
       this.$refs.loginForm.validate(async valid => {
         if (valid) {
           await register(this.loginForm)

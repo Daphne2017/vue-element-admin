@@ -41,7 +41,7 @@ module.exports = {
       '/dev_mock': {
         target: 'http://47.110.148.106:3030/mock/11',
         changeOrigin: true,
-        pathRewrite: path => pathReplace(path, '/dev-api/dev_mock'),
+        pathRewrite: path => {},
       },
       '/dev-api': {
         target: 'http://127.0.0.1:7001',
