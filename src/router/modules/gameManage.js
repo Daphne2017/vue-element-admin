@@ -1,14 +1,19 @@
 import Layout from '@/layout'
 const gameRouter = {
-  path: '/game',
+  path: '/gameManage',
   component: Layout,
-  redirect: '/game/list',
+  redirect: '/gameManage/list',
+  meta: {
+    title: '游戏管理',
+    icon: 'gameManage',
+    code: ['gameManage'],
+  },
   children: [
     {
       path: 'list',
       component: () => import('@/views/gameLibrary/index'),
       name: 'GameList',
-      meta: { title: 'GameList', icon: 'dashboard', affix: true },
+      meta: { title: '游戏管理', icon: 'dashboard', code: ['gameManage'], noCache: true },
     },
   ],
 }
