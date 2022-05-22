@@ -104,8 +104,10 @@ export default {
     async authorityApi(id) {
       this.changeAuthParams.id = id
       const { data } = await getAuthorityApi({ id })
-      this.personAuth = data
-      this.ids = getTreeList(this.personAuth).filter(item => item.privilege_operation === 'enabled').map(item => item.menu_id)
+      this.personAuth = data // 渲染菜单树节点，非平级结构
+      console.log('data', data)
+      console.log('getTreeList', getTreeList(this.personAuth))
+      this.ids = getTreeList(this.personAuth).filter(item => item.privilege_operation === 'enabled').map(item => item.menu_id) // 树回显已勾选的菜单ID
       this.getData(this.ids)
       this.authorityVisible = true
     },
@@ -142,6 +144,7 @@ export default {
         ids.find(i => item.menu_id === i) ? item.privilege_operation = 'enabled' : item.privilege_operation = 'disabled'
         return item
       })
+      console.log('getTreeListdata', data)
       this.changeAuth = data
     },
   },
