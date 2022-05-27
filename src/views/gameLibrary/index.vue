@@ -5,7 +5,7 @@
       ref="gameTable"
       :key="gameTableKey"
       border
-      :data-url="gameMangementListApi"
+      :data-url="gameManageListApi"
       :column="gameColumn"
       :extra-form-data="extraFormData"
       :pagination="gamePagination"
@@ -103,7 +103,7 @@
 import commonTable from '@/components/CommonTable'
 import commonForm from '@/components/CommonForm'
 import { parseTime } from '@/utils'
-import { gameMangementListApi, submitGameApi, updatePutStatusApi, getAllGamesApi } from '@/api/gameManage.js'
+import { gameManageListApi, submitGameApi, updatePutStatusApi, getAllGamesApi } from '@/api/gameManage.js'
 import { modifyRole } from '@/api/user.js'
 import { tagLibraryListApi } from '@/api/tagManage.js'
 import {
@@ -126,7 +126,7 @@ export default {
   },
   data() {
     return {
-      gameMangementListApi,
+      gameManageListApi,
       tagLibraryListApi,
       parseTime,
       totalData: {

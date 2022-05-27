@@ -2,7 +2,7 @@ import request from '@/utils/request'
 // 获取已关联的标签
 
 /**  游戏管理页  */
-export const gameManageListApi = '/gameManage/list'
+export const gameManageListApi = 'http://127.0.0.1:7001/gameManage/list'
 // 提交表单
 export function submitGameApi({ id, ...data }) {
   const url = id ? `edit/${id}` : `add`
