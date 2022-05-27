@@ -2,13 +2,13 @@ import request from '@/utils/request'
 // 获取已关联的标签
 
 /**  游戏管理页  */
-export const gameMangementListApi = '/gameManagement/gameLibraryList'
+export const gameManageListApi = '/gameManage/list'
 // 提交表单
 export function submitGameApi({ id, ...data }) {
   const url = id ? `edit/${id}` : `add`
   return request({
     timeout: 2 * 60 * 1000,
-    url: `/gameManagement/gameLibrary/${url}`,
+    url: `/gameManage/${url}`,
     method: `${id ? 'put' : 'post'}`,
     data,
   })
@@ -16,7 +16,7 @@ export function submitGameApi({ id, ...data }) {
 
 export function getGameRelatedTagApi(id) {
   return request({
-    url: `/gameMangement/gameLibrary/getRelatedTagsBygameId/${id}`,
+    url: `/gameManage/getRelatedTagsBygameId/${id}`,
     method: 'get',
     data: { id },
   })
@@ -24,7 +24,7 @@ export function getGameRelatedTagApi(id) {
 // 游戏上下架
 export function updatePutStatusApi(id, data) {
   return request({
-    url: `/gameMangement/gameLibrary/updatePutStatus/${id}`,
+    url: `/gameManage/updatePutStatus/${id}`,
     method: 'patch',
     data,
   })
@@ -33,7 +33,7 @@ export function updatePutStatusApi(id, data) {
 // 获取所有的游戏
 export function getAllGamesApi() {
   return request({
-    url: `/gameMangement/gameLibrary/all`,
+    url: `/gameManage/all`,
     method: 'get',
   })
 }
